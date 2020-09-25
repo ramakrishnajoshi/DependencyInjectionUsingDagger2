@@ -1,4 +1,4 @@
-package com.example.di
+package com.example.dependencyinjection
 
 import org.junit.Test
 

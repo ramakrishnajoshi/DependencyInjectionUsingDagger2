@@ -1,4 +1,4 @@
-package com.example.di
+package com.example.dependencyinjection
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
