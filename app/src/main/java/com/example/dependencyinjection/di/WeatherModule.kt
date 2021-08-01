@@ -1,8 +1,6 @@
 package com.example.dependencyinjection.di
 
 import com.example.dependencyinjection.*
-import com.example.dependencyinjection.app.WeatherApplication
-import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -17,6 +15,8 @@ import java.util.concurrent.TimeUnit
 //This is dependency provider class. @Provider would have been more sensible than @Module
 //@Provider - the class that provides dependencies
 //@Provides - the methods in @Provider(@Module) class that provides actual dependencies.
+//An abstract class is a class that is declared abstract —it may or may not include abstract methods.
+//Abstract classes cannot be instantiated, but they can be subclassed.
 @Module
 abstract class WeatherModule {
 
@@ -65,7 +65,8 @@ abstract class WeatherModule {
     companion object {
         /**
          * @Binds and @ContributesAndroidInjector methods must be abstract, because they don't have method bodies. That means that they must go on an
-         * interface or abstract class. @Provides methods may be static, which means they can go on abstract classes and Java-8-compiled interfaces,
+         * interface or abstract class.
+         * @Provides methods may be static, which means they can go on abstract classes and Java-8-compiled interfaces,
          * but non-static ("instance") @Provides methods don't work on abstract classes. This is explicitly listed in the Dagger FAQ, under the
          * sections "Why can’t @Binds and instance @Provides methods go in the same module?" and "What do I do instead?".
          * If your @Provides method doesn't use instance state, you can mark it static, and it can go onto an abstract class adjacent to your

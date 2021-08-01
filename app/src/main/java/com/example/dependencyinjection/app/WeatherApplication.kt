@@ -12,7 +12,8 @@ import javax.inject.Inject
 class WeatherApplication : Application(), HasAndroidInjector {
 
     /**
-     * The DispatchingAndroidInjector that we’re injecting into the application class below is just a class that facilitates injecting objects into
+     * The DispatchingAndroidInjector that we’re injecting into the application class below is just
+     * a class that facilitates injecting objects into
      * Android-specific classes (such as activities, fragments, services etc)
      * */
     @Inject
@@ -23,17 +24,24 @@ class WeatherApplication : Application(), HasAndroidInjector {
     }
 
     /**
-     * In our custom application class we must instantiate the generated implementation of AppComponent . The generated class’s name is the
-     * interface’s name prefixed with Dagger.
+     * In our custom application class we must instantiate the generated implementation of
+     * AppComponent . The generated class’s name is the interface’s name prefixed with Dagger.
      * Example : Dagger + WeatherComponent = DaggerWeatherComponent
      * */
     override fun onCreate() {
         super.onCreate()
 
         /**
-         * Notice we’re calling inject(this) in onCreate() which is telling Dagger to inject the current instance of our application class. This
-         * results in Dagger setting the androidInjector field to something (doesn’t matter what) because it is annotated with @Inject .
+         * Notice we’re calling inject(this) in onCreate() which is telling Dagger to inject the
+         * current instance of our application class.
+         * This results in Dagger setting the androidInjector field to something (doest matter what)
+         * because it is annotated with @Inject.
          */
         DaggerWeatherComponent.create().inject(this@WeatherApplication)
+
+        // Below line is 2nd way of initialising DaggerWeatherComponent.
+        // More here: https://stackoverflow.com/a/51397043
+        // and here: https://stackoverflow.com/a/48805964/8956093
+        //DaggerWeatherComponent.builder().bindApplicationInstanceToComponent(this).build()
     }
 }

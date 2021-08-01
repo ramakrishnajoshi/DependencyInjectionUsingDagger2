@@ -9,14 +9,26 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
+// To be able to inject activities and fragment, you need to create a @ContributesAndroidInjector
+// method for each activity/fragment in a Dagger module (see WeatherModule).
 class WeatherActivity : AppCompatActivity() {
 
+    // Ask Dagger to set this field for us.
     @Inject
     lateinit var weatherViewModel: WeatherViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Performs the actual setting of the fields. Without this, the fields will be null.
         AndroidInjection.inject(this) //must be called before super.onCreate():
-
+        //The above line is not required in new Android Dagger. Instead of above line, we can create
+        //an abstract ActivityBindingModule @Module class and list down the activities with
+        //annotation @ContributesAndroidInjector
+        //Example:
+        //      @Module
+        //      abstract class WeatherModule {
+        //          @ContributesAndroidInjector
+        //          abstract fun contributeWeatherActivity() : WeatherActivity
+        //      }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

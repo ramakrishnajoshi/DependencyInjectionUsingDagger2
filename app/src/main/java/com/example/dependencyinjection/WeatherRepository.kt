@@ -1,5 +1,6 @@
 package com.example.dependencyinjection
 
+import com.example.dependencyinjection.model.WeatherDataCache
 import com.example.dependencyinjection.viewstate.WeatherViewState
 import com.example.dependencyinjection.viewstate.WeatherViewState.Loading
 import com.google.gson.JsonParseException
@@ -11,11 +12,15 @@ import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
     private val weatherService: WeatherService,
-    private val weatherConverter: WeatherDataViewStateConverter) : ApiWeatherRepository {
+    private val weatherConverter: WeatherDataViewStateConverter,
+    private val weatherDataCache: WeatherDataCache) : ApiWeatherRepository {
 
     override fun getWeatherDetails(): Observable<WeatherViewState> {
         val loadingViewState = Observable.just(Loading)
 
+        weatherDataCache.getData()?.let {
+            return Observable.just(WeatherViewState.Data(it))
+        }
         return weatherService
             .getWeatherDetails()
             .map(weatherConverter)

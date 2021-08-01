@@ -20,8 +20,8 @@ import javax.inject.Inject
 // Notice that we’ve added the repository as a parameter of the constructor that we previously
 // annotated with @Inject . Dagger will try to instantiate each of the constructor parameters when
 // instantiating the class.
-// “whenever someone injects the ApiWeatherRepository interface, go and give them a WeatherRepositoryImpl instance”.
-class WeatherViewModel @Inject constructor(private val weatherRepository: WeatherRepository) :
+// “whenever someone injects the ApiWeatherRepository interface, go and give them a WeatherRepository instance”.
+class WeatherViewModel @Inject constructor(private val weatherRepository: ApiWeatherRepository) :
     ViewModel() {
 
     var disposable = CompositeDisposable()
